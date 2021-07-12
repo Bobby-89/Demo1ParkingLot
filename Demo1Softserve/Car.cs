@@ -9,10 +9,8 @@ namespace Demo1Softserve
         public Car(string numberPlate)
         {
             this.NumberPlate = numberPlate;
-            this.IsParked = false;
         }
 
         public string NumberPlate { get; set; }
-        public bool IsParked { get; set; }
     }
 }

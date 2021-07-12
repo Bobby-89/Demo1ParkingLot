@@ -9,8 +9,6 @@ namespace Demo1Softserve
         {
             ParkingLot parkingLot = new ParkingLot();
 
-            Console.WriteLine("Hello, park or remove car from the parking lot by typing '+' for parking car or '-' for removig car following by the car numberplate together without spaces.");
-            
             while (true)
             {
                 //Regex regexForValidatingNumberPlate = new Regex(@"[a-zA-Z]{1,2}\\+\d{4}[a-zA-Z]{2}");
@@ -21,14 +19,14 @@ namespace Demo1Softserve
 
                 while (!(command == "park" || command == "exit" || command == "info"))
                 {
-                    Console.WriteLine("Please enter 'park' for parking a car or 'exit' for removing a car");
+                    Console.WriteLine("Please enter 'park' for parking a car, enter 'exit' for removing a car or enter 'info' to get info.");
                     command = Console.ReadLine();
                 }
 
                 if (command == "park")
                 {
                     // TODO: make validating number plate function
-                    while (!(regexForValidatingNumberPlate.IsMatch(numberPlate)))
+                    while (ValidateNumberPlate(numberPlate) == false)
                     {
                         Console.WriteLine("Please enter the number");
                         numberPlate = Console.ReadLine();
@@ -45,9 +43,12 @@ namespace Demo1Softserve
                 }
                 else if (command == "exit")
                 {
-                    while (!(regexForValidatingNumberPlate.IsMatch(numberPlate)))
+                    while (ValidateNumberPlate(numberPlate) == false)
                     {
-                        Console.WriteLine("Please enter the number");
+                        Console.WriteLine("Please enter the number.");
+                        Console.WriteLine("List with the parked cars:");
+                        //TODO: continue here
+                        
                         numberPlate = Console.ReadLine();
                     }
 
@@ -59,13 +60,25 @@ namespace Demo1Softserve
                     {
                         Console.WriteLine(ex.Message);
                     }
-                    
+
                 }
                 else if (command == "info")
                 {
                     Console.WriteLine(parkingLot.Info());
                 }
             }
+
+        }
+        public static bool ValidateNumberPlate(string numberPlate)
+        {
+            Regex regexForValidatingNumberPlate = new Regex(@"^[A-Za-z]{1,2}[0-9]{4}[A-Za-z]{2}$");
+
+            if (regexForValidatingNumberPlate.IsMatch(numberPlate))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

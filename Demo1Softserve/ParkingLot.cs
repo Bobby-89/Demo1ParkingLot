@@ -26,7 +26,6 @@ namespace Demo1Softserve
             }
             else
             {
-                car.IsParked = true;
                 this.parkedCars.Add(car.NumberPlate, car);                
             }
         }
@@ -35,7 +34,6 @@ namespace Demo1Softserve
         {
             if (this.parkedCars.ContainsKey(car.NumberPlate))
             {
-                car.IsParked = false;
                 this.parkedCars.Remove(car.NumberPlate);
             }
             else
