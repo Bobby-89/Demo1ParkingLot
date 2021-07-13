@@ -18,6 +18,7 @@ namespace Demo1Softserve
                 while (!(command == "park" || command == "exit" || command == "info"))
                 {
                     Console.WriteLine("Please enter 'park' for parking a car, enter 'exit' for removing a car or enter 'info' to get info.");
+
                     command = Console.ReadLine();
                 }
 
@@ -41,14 +42,17 @@ namespace Demo1Softserve
                 else if (command == "exit")
                 {
                     while (ValidateNumberPlate(numberPlate) == false)
-                    {                        
+                    {
                         Console.WriteLine("List with the parked cars:");
-                        foreach (KeyValuePair<string, string> kvp in parkingLot.ParkedTime)
+
+                        foreach (KeyValuePair<string, DateTime> kvp in parkingLot.ParkedTime)
                         {
                             Console.WriteLine
                                 ($"Number plate: {kvp.Key} - parked at {kvp.Value} o'clock.");
                         }
-                        Console.WriteLine("Please enter the number.");
+
+                        Console.WriteLine("Please enter the number");
+
                         numberPlate = Console.ReadLine();
                     }
 
@@ -66,9 +70,15 @@ namespace Demo1Softserve
                 else if (command == "info")
                 {
                     Console.WriteLine(parkingLot.Info());
+
+                    foreach (KeyValuePair<string, DateTime> kvp in parkingLot.ParkedTime)
+                    {
+                        var elapsed = DateTime.Now.Subtract(kvp.Value).ToString("mm\\:ss\\:ff");
+
+                        Console.WriteLine($"Number plate: {kvp.Key} - parked for {elapsed} until now.");
+                    }
                 }
             }
-
         }
         public static bool ValidateNumberPlate(string numberPlate)
         {
@@ -83,5 +93,3 @@ namespace Demo1Softserve
         }
     }
 }
-
-// TODO: print all number plates on exit command for the operator to choose

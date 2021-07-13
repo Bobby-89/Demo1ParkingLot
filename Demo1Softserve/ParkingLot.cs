@@ -8,14 +8,14 @@ namespace Demo1Softserve
         private const int CAPACITY = 20;
 
         protected Dictionary<string, Car> parkedCars;
-        protected Dictionary<string, string> parkedTime;
+        protected Dictionary<string, DateTime> parkedTime;
 
-        public Dictionary<string, string> ParkedTime { get { return parkedTime; } }
+        public Dictionary<string, DateTime> ParkedTime { get { return parkedTime; } }
 
         public ParkingLot()
-        {   
+        {
             this.parkedCars = new Dictionary<string, Car>();
-            this.parkedTime = new Dictionary<string, string>();
+            this.parkedTime = new Dictionary<string, DateTime>();
         }
 
         public void Park(Car car)
@@ -31,7 +31,7 @@ namespace Demo1Softserve
             else
             {
                 this.parkedCars.Add(car.NumberPlate, car);
-                this.parkedTime.Add(car.NumberPlate, DateTime.Now.ToString("HH:mm"));
+                this.parkedTime.Add(car.NumberPlate, DateTime.Now);
             }
         }
 
@@ -49,8 +49,8 @@ namespace Demo1Softserve
 
         public string Info()
         {
-            
             int availableSpots = CAPACITY - this.parkedCars.Count;
+
             if (availableSpots == 1)
             {
                 return $"There is 1 available spot.";
@@ -64,5 +64,3 @@ namespace Demo1Softserve
         }
     }
 }
-
-// TODO: make datetimes for parking lot and print time elapsed on info
