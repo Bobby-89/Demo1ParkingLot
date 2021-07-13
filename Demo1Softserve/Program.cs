@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Demo1Softserve
@@ -11,9 +12,6 @@ namespace Demo1Softserve
 
             while (true)
             {
-                //Regex regexForValidatingNumberPlate = new Regex(@"[a-zA-Z]{1,2}\\+\d{4}[a-zA-Z]{2}");
-                Regex regexForValidatingNumberPlate = new Regex(@"^[A-Za-z]{1,2}[0-9]{4}[A-Za-z]{2}$");
-
                 string command = string.Empty;
                 string numberPlate = string.Empty;
 
@@ -25,7 +23,6 @@ namespace Demo1Softserve
 
                 if (command == "park")
                 {
-                    // TODO: make validating number plate function
                     while (ValidateNumberPlate(numberPlate) == false)
                     {
                         Console.WriteLine("Please enter the number");
@@ -44,17 +41,21 @@ namespace Demo1Softserve
                 else if (command == "exit")
                 {
                     while (ValidateNumberPlate(numberPlate) == false)
-                    {
-                        Console.WriteLine("Please enter the number.");
+                    {                        
                         Console.WriteLine("List with the parked cars:");
-                        //TODO: continue here
-                        
+                        foreach (KeyValuePair<string, string> kvp in parkingLot.ParkedTime)
+                        {
+                            Console.WriteLine
+                                ($"Number plate: {kvp.Key} - parked at {kvp.Value} o'clock.");
+                        }
+                        Console.WriteLine("Please enter the number.");
                         numberPlate = Console.ReadLine();
                     }
 
                     try
                     {
                         parkingLot.Remove(new Car(numberPlate));
+                        parkingLot.ParkedTime.Remove(numberPlate);
                     }
                     catch (InvalidOperationException ex)
                     {

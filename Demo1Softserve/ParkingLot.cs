@@ -8,10 +8,14 @@ namespace Demo1Softserve
         private const int CAPACITY = 20;
 
         protected Dictionary<string, Car> parkedCars;
+        protected Dictionary<string, string> parkedTime;
+
+        public Dictionary<string, string> ParkedTime { get { return parkedTime; } }
 
         public ParkingLot()
         {   
             this.parkedCars = new Dictionary<string, Car>();
+            this.parkedTime = new Dictionary<string, string>();
         }
 
         public void Park(Car car)
@@ -26,7 +30,8 @@ namespace Demo1Softserve
             }
             else
             {
-                this.parkedCars.Add(car.NumberPlate, car);                
+                this.parkedCars.Add(car.NumberPlate, car);
+                this.parkedTime.Add(car.NumberPlate, DateTime.Now.ToString("HH:mm"));
             }
         }
 
@@ -44,10 +49,11 @@ namespace Demo1Softserve
 
         public string Info()
         {
+            
             int availableSpots = CAPACITY - this.parkedCars.Count;
             if (availableSpots == 1)
             {
-                return $"There is {availableSpots} available spot.";
+                return $"There is 1 available spot.";
             }
             else if (availableSpots == 0)
             {
